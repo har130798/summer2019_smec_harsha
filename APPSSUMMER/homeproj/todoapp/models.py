@@ -1,19 +1,19 @@
-from django.db import models
-
+from django.db.models import *
+from django.utils.timezone import *
 # Create your models here.
 
-class Task(models.Model):
-    title = models.CharField(max_length=50)
-    task = models.CharField(max_length=1000)
-    is_complete = models.BooleanField()
-    date = models.DateField()
+class Todolist(Model):
+    name = CharField(max_length=255, null=False, blank=False)
+    created = DateTimeField(default=now, null=False, blank=False)
 
     def __str__(self):
-        return self.title
+        return self.name
 
-class Person(models.Model):
-    name = models.CharField(max_length=255)
-    tasks =
+class Todoitem(Model):
+    description = CharField(max_length=255, null=False, blank=False)
+    due_date = DateTimeField(null=True, blank=True)
+    completed = BooleanField(default=False)
+    todolist = ForeignKey(Todolist, on_delete=CASCADE)
 
-
-
+    def __str__(self):
+        return self.description
