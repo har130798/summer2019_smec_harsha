@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static "css/pure.css" %}">
+<head>
+    <meta charset="UTF-8">
+    <title>College student info</title>
+</head>
+<style>
+    #table-center {
+        margin: 0px auto;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    #th {
+        text-align: center;
+    }
+</style>
+<body>
+<h1 id="table-center">Colleges list</h1>
+<table class="pure-table" id="table-center">
+    <thead>
+        <tr><th id="th">Id</th><th id="th">Name</th><th id="th">Total in Mocktest1</th></tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+            <tr><td>{{student.student__id}}</td><td>{{student.student__name}}</td><td>{{student.total}}</td></tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+</body>
+</html>

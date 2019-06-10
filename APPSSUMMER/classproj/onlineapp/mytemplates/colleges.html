@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static "css/pure.css" %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Colleges</title>
+</head>
+<style>
+    #table-center {
+        margin: 0px auto;
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    #th {
+        text-align: center;
+    }
+</style>
+<body>
+<h1 id="table-center">Colleges list</h1>
+<table class="pure-table" id="table-center">
+    <thead>
+         <tr><th id="th">College</th><th id="th">Acronym</th></tr>
+    </thead>
+    <tbody>
+        {% for col in colleges %}
+            <tr><td>{{col.name}}</td><td><a href="/onlineapp/college_student_info/{{ col.id }}">{{col.acronym}}</a></td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
