@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/pure.css' %}">
+    <style>
+    #th {
+        text-align: center;
+        font-weight: 400;
+    }
+
+    #menu-horizontal {
+        background-color: darkgray;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    #menu-item {
+        color: black;
+    }
+
+    #editdelete {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #editdeletecont {
+        font-size: 10px;
+        color: gray;
+        padding-left: 5px;
+    }
+    .center-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-wrapper {
+        text-align: center;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+<div class="home-menu pure-menu pure-menu-horizontal" id="menu-horizontal">
+    <a href="/colleges" class="pure-menu-heading pure-menu-link" id="menu-item">Online App</a>
+    {% if user == True %}
+    <a href="{% url 'logout' %}" class="pure-menu-heading pure-menu-link" id="menu-item">Logout</a>
+    {% endif %}
+</div>
+<h1 id="th">Student Form</h1>
+    <div class="form-wrapper">
+         <form method="post" class="pure-form pure-form-aligned">
+             {% csrf_token %}
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="name">Name</label>
+                    {{ student_form.name  }}
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="acronym">Email</label>
+                    {{ student_form.email}}
+                </div>
+
+                <div class="pure-control-group">
+                    <label for="contact">Dbname</label>
+                    {{ student_form.dbname }}
+                </div>
+                <div class="pure-control-group">
+                    <label for="problem1">Problem1</label>
+                    {{ mocktest1_form.problem1 }}
+                </div>
+                <div class="pure-control-group">
+                    <label for="problem2">Problem2</label>
+                    {{ mocktest1_form.problem2 }}
+                </div>
+                <div class="pure-control-group">
+                    <label for="problem3">Problem3</label>
+                    {{ mocktest1_form.problem3 }}
+                </div>
+                <div class="pure-control-group">
+                    <label for="problem4">Problem4</label>
+                    {{ mocktest1_form.problem4 }}
+                </div>
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

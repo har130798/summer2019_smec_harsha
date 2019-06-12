@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="">
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/pure.css' %}">
+    <style>
+    #th {
+        text-align: center;
+        font-weight: 400;
+    }
+
+    #menu-horizontal {
+        background-color: darkgray;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    #menu-item {
+        color: black;
+    }
+
+    #editdelete {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #editdeletecont {
+        font-size: 10px;
+        color: gray;
+        padding-left: 5px;
+    }
+    .center-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-wrapper {
+        text-align: center;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+<h1 id="th">Login Form</h1>
+    <div class="form-wrapper">
+         <form method="post" class="pure-form pure-form-aligned">
+             {% csrf_token %}
+            <fieldset>
+                <div class="pure-control-group">
+                    <label for="username">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="pure-control-group">
+                    <label for="problem1">Password</label>
+                    {{ form.password }}
+                </div>
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+<a href="{% url 'signup' %}">Signup</a>
+</body>
+</html>

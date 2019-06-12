@@ -11,21 +11,77 @@
         margin: 0px auto;
         text-align: center;
         padding-bottom: 30px;
+        font-weight: 400;
     }
 
     #th {
         text-align: center;
     }
+
+    #menu-horizontal {
+        background-color: darkgray;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    #menu-item {
+        color: black;
+    }
+
+    #editdelete {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #editdeletecont {
+        font-size: 10px;
+        color: gray;
+        padding-left: 5px;
+    }
+
+    .center-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    #button-center {
+        text-decoration: none;
+        color: white;
+    }
 </style>
 <body>
-<h1 id="table-center">Colleges list</h1>
+<div class="home-menu pure-menu pure-menu-horizontal" id="menu-horizontal">
+    <a href="/colleges" class="pure-menu-heading pure-menu-link" id="menu-item">Online App</a>
+    {% if user.is_authenticated == True %}
+    <a href="{% url 'logout' %}" class="pure-menu-heading pure-menu-link" id="menu-item">Logout</a>
+    {% endif %}
+</div>
+<h1 id="table-center">{{college.name}}</h1>
+<div class="center-content">
+    {% if user.is_superuser == True %}
+    <button class="pure-button pure-button-primary"><a href="{% url 'college_add_student' college.id %}" id="button-center">Add Student</a></button>
+    {% endif %}
+</div>
 <table class="pure-table" id="table-center">
     <thead>
         <tr><th id="th">Id</th><th id="th">Name</th><th id="th">Total in Mocktest1</th></tr>
     </thead>
     <tbody>
         {% for student in students %}
-            <tr><td>{{student.student__id}}</td><td>{{student.student__name}}</td><td>{{student.total}}</td></tr>
+            <tr>
+                <td>{{student.student__id}}</td>
+                <td>
+                    {{student.student__name}}
+                    {% if user.is_superuser == True %}
+                    <span id="editdeletecont">
+                        <a href="{% url 'student_edit' student.student__id %}" id="editdelete">edit</a>
+                        |
+                        <a href="{% url 'student_delete' student.student__id %}" id="editdelete">delete</a>
+                    </span>
+                    {% endif %}
+                </td>
+                <td>{{student.total}}</td>
+            </tr>
         {% endfor %}
     </tbody>
 
