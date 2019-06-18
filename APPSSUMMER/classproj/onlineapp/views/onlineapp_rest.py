@@ -1,11 +1,19 @@
 from onlineapp.models import *
 from onlineapp.serializers import *
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.status import *
 from rest_framework.views import APIView
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 @api_view(['GET', 'POST', 'DELETE', 'PUT'])
+@authentication_classes((SessionAuthentication, BasicAuthentication, TokenAuthentication))
+@permission_classes((IsAuthenticated,))
 def rest_colleges(request, *args, **kwargs):
 
     if request.method == 'POST':
@@ -53,6 +61,9 @@ def rest_colleges(request, *args, **kwargs):
     return Response(serialized.data)
 
 class StudentRestView(APIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication, TokenAuthentication)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, *args, **kwargs):
         try:
             if kwargs.get('id') != None:
@@ -94,3 +105,7 @@ class StudentRestView(APIView):
             print(e)
         return Response(status=HTTP_400_BAD_REQUEST)
 
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

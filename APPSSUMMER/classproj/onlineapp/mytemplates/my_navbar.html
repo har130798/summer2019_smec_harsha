@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{% static 'css/pure.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Colleges</title>
+</head>
+<style>
+    body {
+        font-family:  Helvetica, Arial, sans-serif;
+        margin: 0px;
+    }
+
+    #table-center {
+        margin: 0px auto;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 400;
+    }
+
+    #th {
+        text-align: center;
+    }
+
+    #menu-horizontal {
+        background-color: darkgray;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    #menu-item {
+        color: black;
+    }
+
+    #editdelete {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #editdeletecont {
+        font-size: 10px;
+        color: gray;
+        padding-left: 5px;
+    }
+    .center-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    #button-center {
+        text-decoration: none;
+        color: white;
+    }
+
+    .navbar-right {
+        margin-top: 0px;
+        float: right;
+    }
+
+    .table-head {
+        background-color: darkgrey;
+    }
+
+</style>
+<body>
+<div class="home-menu pure-menu pure-menu-horizontal" id="menu-horizontal">
+    <a href="/colleges" class="pure-menu-heading pure-menu-link" id="menu-item">Online App</a>
+    <ul class="navbar-right">
+        <a href="{% url 'logout' %}" class="pure-menu-heading pure-menu-link" id="menu-item">Logout</a>
+    </ul>
+</div>
+<h1 id="table-center">Colleges list</h1>
+<div class="center-content">
+    {% if user.is_superuser == True %}
+    <button class="pure-button pure-button-primary" ><a href="{% url 'collegeform_html' %}" id="button-center">Add college </a></button>
+    {% endif %}
+</div>
+<table class="pure-table" id="table-center">
+    <thead class="table-head">
+         <tr><th id="th">College</th><th id="th">Acronym</th></tr>
+    </thead>
+    <tbody>
+        {% for col in colleges %}
+            <tr>
+                <td>{{col.name}}</td>
+                <td>
+                    <a href="{% url 'colleges_html' %}{{ col.id }}">{{col.acronym}}</a>
+                    {% if user.is_superuser == True %}
+                    <span id="editdeletecont">
+                        <a href="{% url 'college_edit' col.id %}" id="editdelete">edit</a>
+                        |
+                        <a href="/college/{{col.id}}/delete" id="editdelete">delete</a>
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

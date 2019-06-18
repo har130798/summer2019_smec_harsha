@@ -1,6 +1,6 @@
 from django.views import View
 from django.shortcuts import render, redirect
-from onlineapp.forms import *
+from myapp.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 

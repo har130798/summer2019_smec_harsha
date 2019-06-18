@@ -21,3 +21,8 @@ urlpatterns = [
     path('api/v1/colleges/<int:college_id>/students', StudentRestView.as_view(), name='students_rest'),
     path('api/v1/colleges/<int:college_id>/students/<int:id>', StudentRestView.as_view(), name='student_rest'),
 ]
+
+from rest_framework.authtoken import views
+urlpatterns += [
+    path('api-token-auth/', views.obtain_auth_token)
+]

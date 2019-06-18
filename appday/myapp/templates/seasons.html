@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+function filter() {
+    console.log(document.getElementById('years').value)
+}
+    </script>
+</head>
+<body>
+    <select name="seasons" id='years' onchange="filter()">
+    {% for s in seasons %}
+        <option value="{{ s }}">{{ s }}</option>
+    {% endfor %}
+    </select>
+    {{season_data}}
+</body>
+</html>

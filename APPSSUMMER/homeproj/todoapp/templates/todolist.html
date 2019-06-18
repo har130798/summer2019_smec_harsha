@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static "css/pure.css" %}">
+<head>
+    <meta charset="UTF-8">
+    <title>Colleges</title>
+</head>
+<style>
+    #table-center {
+        margin: 0px auto;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 400;
+    }
+
+    #th {
+        text-align: center;
+    }
+
+    #menu-horizontal {
+        background-color: darkgray;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    #menu-item {
+        color: black;
+    }
+
+    #editdelete {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #editdeletecont {
+        font-size: 10px;
+        color: gray;
+        padding-left: 5px;
+    }
+    .center-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    #button-center {
+        text-decoration: none;
+        color: white;
+    }
+</style>
+<body>
+<div class="home-menu pure-menu pure-menu-horizontal" id="menu-horizontal">
+    <a href="{% url 'todolist' %}" class="pure-menu-heading pure-menu-link" id="menu-item">TODOLIST App</a>
+    {% if user.is_authenticated == True %}
+    <a href="{% url 'logout' %}" class="pure-menu-heading pure-menu-link" id="menu-item">Logout</a>
+    {% endif %}
+</div>
+<h1 id="table-center">Todo list</h1>
+<div class="center-content">
+    {% if user.is_authenticated == True %}
+    <button class="pure-button pure-button-primary" ><a href="{% url 'addtodolist' %}" id="button-center">New TODO list </a></button>
+    {% endif %}
+</div>
+
+{% for listitem in lists %}
+<a href="{% url 'todoitems' listitem.id %}">{{ listitem.name }}</a>
+<a href="{% url 'edittodolist' listitem.id %}" id="editdelete">edit</a>
+|
+<a href="{% url 'deletetodolist' listitem.id %}" id="editdelete">delete</a><br />
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/pure.css' %}">
+    <style>
+    #th {
+        text-align: center;
+        font-weight: 400;
+    }
+
+    #menu-horizontal {
+        background-color: darkgray;
+        padding: 10px;
+        margin-bottom: 30px;
+    }
+
+    #menu-item {
+        color: black;
+    }
+
+    #editdelete {
+        color: gray;
+        font-size: 12px;
+    }
+
+    #editdeletecont {
+        font-size: 10px;
+        color: gray;
+        padding-left: 5px;
+    }
+    .center-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-wrapper {
+        text-align: center;
+        margin: 0 auto;
+    }
+    </style>
+</head>
+<body>
+<div class="home-menu pure-menu pure-menu-horizontal" id="menu-horizontal">
+    <a href="{% url 'todolist' %}" class="pure-menu-heading pure-menu-link" id="menu-item">TODOLIST App</a>
+    {% if user == True %}
+    <a href="{% url 'logout' %}" class="pure-menu-heading pure-menu-link" id="menu-item">Logout</a>
+    {% endif %}
+</div>
+<h1 id="th">Todoitem Form</h1>
+    <div class="form-wrapper">
+         <form method="post" class="pure-form pure-form-aligned">
+             {% csrf_token %}
+                {{ form.description }}
+                {{ form.due_date }}
+                <div class="pure-controls">
+                    <button type="submit" class="pure-button pure-button-primary">Submit</button>
+                </div>
+        </form>
+    </div>
+</body>
+</html>
